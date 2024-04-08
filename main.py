@@ -18,6 +18,23 @@ def extract(source):
     return value
 
 
+def send_email():
+    print("Email was sent!")
+
+
+def store(tour):
+    with open("data.txt", 'a') as file:
+        file.write(tour + "\n")
+
+
+def recover():
+    with open("data.txt", 'r') as file:
+        return file.read()
+
 
 if __name__ == "__main__":
-    print(extract(scrape(URL)))
+    extracted = extract(scrape(URL))
+    if extracted != "No upcoming tours":
+        if extracted not in recover():
+            store(extracted)
+            send_email()
